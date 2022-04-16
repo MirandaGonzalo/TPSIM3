@@ -25,10 +25,14 @@ namespace Tp3.Servicios
 
             decimal randomUniformeAbX = valorA + ((decimal)numeroRND * resta);
 
-            return randomUniformeAbX;
+            var UniformeTrunca = (decimal)(Math.Truncate(randomUniformeAbX * 10000) / 10000);
+            
+            return UniformeTrunca;
+
+            
         }
 
-        public double generarSerieExponencuialNegativa(Generador generador,double numeroRND)
+        public double generarSerieExponencuialNegativa(Generador generador, double numeroRND)
         {
 
             //usamos media U(valor promedio de ocurrencia de un evento) en ves de lambda 
@@ -36,7 +40,11 @@ namespace Tp3.Servicios
 
             var X = (double)(-generador.valorMedia) * Math.Log(log);
 
-            return X;
+            var XTrunca = (double)(Math.Truncate(X * 10000) / 10000);
+            
+            return XTrunca;
+
+            
         }
 
         public decimal generarNormalN1(Generador gen, double numeroRnd,double numeroRnd2)
@@ -48,7 +56,8 @@ namespace Tp3.Servicios
 
             var normal = (((decimal)Math.Sqrt(aux1) * (decimal)(Math.Cos(aux2))) *gen.desviacionNormal + gen.mediaNormal);
 
-            return normal;
+            var normalTrunca = (decimal)(Math.Truncate(normal * 10000) / 10000);
+            return normalTrunca;
         }
         public decimal generarNormalN2(Generador gen, double numeroRnd , double numeroRnd2)
         {
@@ -59,7 +68,9 @@ namespace Tp3.Servicios
 
             decimal normal = (((decimal)Math.Sqrt(aux1) * (decimal)(Math.Sin(aux2))) * (decimal)gen.desviacionNormal + (decimal)gen.mediaNormal);
 
-            return normal;
+            var normalTrunca = (decimal)(Math.Truncate(normal * 10000) / 10000);
+           
+            return normalTrunca;
         }
 
     }

@@ -245,9 +245,12 @@ namespace Tp3
             for (int i = 0; i < DgvTabla.Rows.Count; i++)
             {
                 var colI = Convert.ToDecimal(DgvTabla.Rows[i].Cells[0].Value);
+                
                 listaDist.Add(colI);
                 
             }
+            Informes frm2 = new Informes();
+            frm2.Show();
             //prueba xd
             //foreach (var item in listaDist)
             //{

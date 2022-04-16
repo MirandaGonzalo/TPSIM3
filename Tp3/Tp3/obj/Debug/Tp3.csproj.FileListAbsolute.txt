@@ -8,3 +8,14 @@ E:\c#\simulacion\Tp3\Tp3\obj\Debug\Tp3.csproj.GenerateResource.cache
 E:\c#\simulacion\Tp3\Tp3\obj\Debug\Tp3.csproj.CoreCompileInputs.cache
 E:\c#\simulacion\Tp3\Tp3\obj\Debug\Tp3.exe
 E:\c#\simulacion\Tp3\Tp3\obj\Debug\Tp3.pdb
+E:\c#\tp3\TPSIM3\Tp3\Tp3\bin\Debug\Tp3.exe.config
+E:\c#\tp3\TPSIM3\Tp3\Tp3\bin\Debug\Tp3.exe
+E:\c#\tp3\TPSIM3\Tp3\Tp3\bin\Debug\Tp3.pdb
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.AssemblyReference.cache
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.Formulario1.resources
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.Informes.resources
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.Properties.Resources.resources
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.GenerateResource.cache
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.CoreCompileInputs.cache
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.exe
+E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.pdb
