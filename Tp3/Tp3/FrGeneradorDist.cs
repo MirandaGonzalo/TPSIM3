@@ -18,9 +18,11 @@ namespace Tp3
 
         private void botonGenerar_Click(object sender, EventArgs e)
         {
+            DgvTabla.Visible = false;
             //limpio tabla
             DgvTabla.Rows.Clear();
-
+            //limpio lista
+            listaDist.Clear();
             // tomo la cantidad de mueestas
             var cantMuestras = Convert.ToInt64(TxtCantMuestras.Text);
 
@@ -28,13 +30,11 @@ namespace Tp3
             if (rbDistUniformeAb.Checked)
             {
                 var generador = new Generador();
-                var listaUniforme = new List<decimal>();
                 var valorA = Convert.ToInt64(txtValorA.Text);
                 var valorB = Convert.ToInt64(TxtValorB.Text);
 
                 generador.valorA = valorA;
                 generador.valorB = valorB;
-
 
                 Random random = new Random();
 
@@ -43,15 +43,7 @@ namespace Tp3
                     double numeroRND = random.NextDouble();
                     decimal x = generador.generarSerieDistribucionUniformeAB(generador, numeroRND);
 
-                    listaUniforme.Add(x);
-                }
-                foreach (var item in listaUniforme)
-                {
-                    var fila = new string[]
-                    {
-                        item.ToString(),
-                    };
-                    DgvTabla.Rows.Add(fila);
+                    listaDist.Add(x);
                 }
             }
 
@@ -61,7 +53,6 @@ namespace Tp3
 
 
                 var gen = new Generador();
-                var listaExpo = new List<decimal>();
                 Random random = new Random();
 
                 gen.valorMedia = decimal.Parse(txtMediaExpo.Text);
@@ -72,17 +63,9 @@ namespace Tp3
                     double numeroRND = random.NextDouble();
                     var x = (decimal)gen.generarSerieExponencuialNegativa(gen, numeroRND);
 
-                    listaExpo.Add(x);
+                    listaDist.Add(x);
                 }
 
-                foreach (var item in listaExpo)
-                {
-                    var fila = new string[]
-                    {
-                        item.ToString(),
-                    };
-                    DgvTabla.Rows.Add(fila);
-                }
 
             }
 
@@ -115,18 +98,10 @@ namespace Tp3
                     var n1 = (decimal)generador.generarNormalN1(generador, numeroRND1, numeroRND2);
                     var n2 = (decimal)generador.generarNormalN2(generador, numeroRND1, numeroRND2);
 
-                    listaNormal.Add(n1);
-                    listaNormal.Add(n2);
+                    listaDist.Add(n1);
+                    listaDist.Add(n2);
                 }
 
-                foreach (var item in listaNormal)
-                {
-                    var fila = new string[]
-                    {
-                        item.ToString(),
-                    };
-                    DgvTabla.Rows.Add(fila);
-                }
 
             }
 
@@ -149,18 +124,9 @@ namespace Tp3
                     }
                     while (p >= A);
                     {
-                        listaPoisson.Add(x);
+                        listaDist.Add((decimal)x);
+                        
                     }
-
-                }
-
-                foreach (var item in listaPoisson)
-                {
-                    var fila = new string[]
-                    {
-                        item.ToString(),
-                    };
-                    DgvTabla.Rows.Add(fila);
                 }
             }
 
@@ -214,54 +180,24 @@ namespace Tp3
             limpiarCampoNormal();
         }
 
-        private void Formulario1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void TxtCantMuestras_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void txtMediaExpo_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void botonInforme_Click(object sender, EventArgs e)
         {
-            listaDist.Clear();//abrir el otro formulario
-            for (int i = 0; i < DgvTabla.Rows.Count; i++)
-            {
-                var colI = Convert.ToDecimal(DgvTabla.Rows[i].Cells[0].Value);
-                
-                listaDist.Add(colI);
-                
-            }
             Informes frm2 = new Informes();
             frm2.Show();
-            //prueba xd
-            //foreach (var item in listaDist)
-            //{
-            //    var fila = new string[]
-            //    {
-            //            item.ToString(),
-            //    };
-            //    DgvTabla.Rows.Add(fila);
-            //}
+        }
 
-
+        private void botonMostrar_Click(object sender, EventArgs e)
+        {
+            foreach (var item in listaDist)
+            {
+                var fila = new string[]
+                {
+                     item.ToString(),
+                };
+                DgvTabla.Rows.Add(fila);
+            }
+            DgvTabla.Visible = true;
         }
     }
 }

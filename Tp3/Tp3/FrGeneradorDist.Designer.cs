@@ -46,6 +46,7 @@ namespace Tp3
             this.txtMediaExpo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.botonInforme = new System.Windows.Forms.Button();
+            this.botonMostrar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DgvTabla)).BeginInit();
             this.SuspendLayout();
             // 
@@ -144,7 +145,7 @@ namespace Tp3
             this.TxtCantMuestras.Name = "TxtCantMuestras";
             this.TxtCantMuestras.Size = new System.Drawing.Size(63, 20);
             this.TxtCantMuestras.TabIndex = 9;
-            this.TxtCantMuestras.TextChanged += new System.EventHandler(this.TxtCantMuestras_TextChanged);
+           
             // 
             // label4
             // 
@@ -154,7 +155,7 @@ namespace Tp3
             this.label4.Size = new System.Drawing.Size(15, 13);
             this.label4.TabIndex = 10;
             this.label4.Text = "N";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            
             // 
             // DgvTabla
             // 
@@ -163,8 +164,9 @@ namespace Tp3
             this.numero});
             this.DgvTabla.Location = new System.Drawing.Point(87, 198);
             this.DgvTabla.Name = "DgvTabla";
-            this.DgvTabla.Size = new System.Drawing.Size(290, 322);
+            this.DgvTabla.Size = new System.Drawing.Size(158, 378);
             this.DgvTabla.TabIndex = 11;
+            this.DgvTabla.Visible = false;
             // 
             // numero
             // 
@@ -189,7 +191,7 @@ namespace Tp3
             this.txtMediaExpo.Name = "txtMediaExpo";
             this.txtMediaExpo.Size = new System.Drawing.Size(63, 20);
             this.txtMediaExpo.TabIndex = 13;
-            this.txtMediaExpo.TextChanged += new System.EventHandler(this.txtMediaExpo_TextChanged);
+
             // 
             // label5
             // 
@@ -200,13 +202,13 @@ namespace Tp3
             this.label5.Size = new System.Drawing.Size(18, 19);
             this.label5.TabIndex = 14;
             this.label5.Text = "U";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
+           
             // 
             // botonInforme
             // 
             this.botonInforme.Font = new System.Drawing.Font("Microsoft YaHei UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.botonInforme.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.botonInforme.Location = new System.Drawing.Point(447, 250);
+            this.botonInforme.Location = new System.Drawing.Point(456, 133);
             this.botonInforme.Name = "botonInforme";
             this.botonInforme.Size = new System.Drawing.Size(100, 46);
             this.botonInforme.TabIndex = 15;
@@ -214,11 +216,23 @@ namespace Tp3
             this.botonInforme.UseVisualStyleBackColor = true;
             this.botonInforme.Click += new System.EventHandler(this.botonInforme_Click);
             // 
+            // botonMostrar
+            // 
+            this.botonMostrar.Font = new System.Drawing.Font("Microsoft YaHei UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.botonMostrar.Location = new System.Drawing.Point(447, 198);
+            this.botonMostrar.Name = "botonMostrar";
+            this.botonMostrar.Size = new System.Drawing.Size(109, 43);
+            this.botonMostrar.TabIndex = 16;
+            this.botonMostrar.Text = "Mostrar Serie";
+            this.botonMostrar.UseVisualStyleBackColor = true;
+            this.botonMostrar.Click += new System.EventHandler(this.botonMostrar_Click);
+            // 
             // Formulario1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 522);
+            this.Controls.Add(this.botonMostrar);
             this.Controls.Add(this.botonInforme);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.txtMediaExpo);
@@ -237,7 +251,7 @@ namespace Tp3
             this.Controls.Add(this.label1);
             this.Name = "Formulario1";
             this.Text = "GENERACION DE NUMEROS PSEUDOALETORIOS CON DISTITNAS DISTRIBUCIONES";
-            this.Load += new System.EventHandler(this.Formulario1_Load);
+            
             ((System.ComponentModel.ISupportInitialize)(this.DgvTabla)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -263,6 +277,7 @@ namespace Tp3
         private System.Windows.Forms.TextBox txtMediaExpo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button botonInforme;
+        private System.Windows.Forms.Button botonMostrar;
     }
 }
 

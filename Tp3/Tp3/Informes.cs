@@ -18,15 +18,12 @@ namespace Tp3
             InitializeComponent();
         }
 
-        private void Informes_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void botonInforme_Click(object sender, EventArgs e)
         {
             DgvInforme.Rows.Clear();
-            var cantidadInt = 5;
+            var cantidadInt = Convert.ToInt64(txtCantIntervalos.Text);
 
             var serieNumeros = Formulario1.listaDist;
             var leng = Formulario1.listaDist.Count;
@@ -103,7 +100,8 @@ namespace Tp3
                 else
                 {
                     //limite sup del a-1
-                    registro.Desde = Math.Truncate((acumuladorDesde + menor) * 10000) / 10000;
+                    decimal desde = Math.Truncate(10000 * limitesSup[a - 1]) / 10000;
+                    registro.Desde = desde;
                     acumuladorDesde += acumuladorDesde;
                 }
                 // aca guardamos los valores de cada registro que seran los datos que mostraremos 
@@ -121,6 +119,33 @@ namespace Tp3
                 //Agregamos los registros a una lista de objetos registros
                 items.Add(registro);
             }
+            for (int i = 0; i < items.Count(); i++)
+            {
+                //PRUEBA DE BONDAD DE AJUSTE CON CHI
+                // calculamos el estadistico llamando a la funcion calcularEstadistico 
+                // Luego lo acumulamos en acumulado para obtener el valor de chi cuadrado
+                //var estaditicoM = CalcularEstadistico(items[i].FrecuenciaObservada, items[i].FrecuenciaEsperada);
+                //acumulado += estaditicoM;
+                //Acumulado = (double)(Math.Truncate(acumulado * 10000) / 10000);
+                //Armamos el string que mostraremos en la tabla grafica(dataGrid)
+                //DgvInforme += items[i].FrecuenciaRelativa;
+                string uwu = "--";
+                var fila = new string[]
+                {
+                        //items[i].Desde.ToString(),
+                        items[i].Desde.ToString(),
+                        items[i].Hasta.ToString(),
+                        items[i].MarcaClase.ToString(),
+                        items[i].FrecuenciaObservada.ToString(),
+                        items[i].FrecuenciaRelativa.ToString(),
+                        uwu,
+                        items[i].FrecuenciaEsperada.ToString(),
+                        uwu,
+                        uwu
+                };
+                DgvInforme.Rows.Add(fila);
+            }
+
         }
     }
 }
