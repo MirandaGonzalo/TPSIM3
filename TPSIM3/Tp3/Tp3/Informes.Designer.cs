@@ -41,7 +41,7 @@ namespace Tp3
             this.FrecuenciaEsperada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txtCantIntervalos = new System.Windows.Forms.TextBox();
+            this.cbIntervalos = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.DgvInforme)).BeginInit();
             this.SuspendLayout();
             // 
@@ -143,24 +143,32 @@ namespace Tp3
             this.Column6.Name = "Column6";
             this.Column6.Width = 125;
             // 
-            // txtCantIntervalos
+            // cbIntervalos
             // 
-            this.txtCantIntervalos.Location = new System.Drawing.Point(145, 38);
-            this.txtCantIntervalos.Name = "txtCantIntervalos";
-            this.txtCantIntervalos.Size = new System.Drawing.Size(100, 20);
-            this.txtCantIntervalos.TabIndex = 10;
+            this.cbIntervalos.FormattingEnabled = true;
+            this.cbIntervalos.Items.AddRange(new object[] {
+            "5 intervalos",
+            "8 intervalos",
+            "10 intervalos",
+            "12 intervalos"});
+            this.cbIntervalos.Location = new System.Drawing.Point(133, 38);
+            this.cbIntervalos.Name = "cbIntervalos";
+            this.cbIntervalos.Size = new System.Drawing.Size(121, 21);
+            this.cbIntervalos.TabIndex = 10;
             // 
             // Informes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1121, 450);
-            this.Controls.Add(this.txtCantIntervalos);
+            this.ClientSize = new System.Drawing.Size(1171, 450);
+            this.Controls.Add(this.cbIntervalos);
             this.Controls.Add(this.DgvInforme);
             this.Controls.Add(this.botonInforme);
             this.Controls.Add(this.label1);
             this.Name = "Informes";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Informes";
+            this.Load += new System.EventHandler(this.Informes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DgvInforme)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -181,6 +189,6 @@ namespace Tp3
         private System.Windows.Forms.DataGridViewTextBoxColumn FrecuenciaEsperada;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column6;
-        private System.Windows.Forms.TextBox txtCantIntervalos;
+        private System.Windows.Forms.ComboBox cbIntervalos;
     }
 }

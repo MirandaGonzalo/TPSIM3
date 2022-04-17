@@ -19,3 +19,15 @@ E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.GenerateResource.cache
 E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.CoreCompileInputs.cache
 E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.exe
 E:\c#\tp3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.pdb
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\bin\Debug\Tp3.exe.config
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\bin\Debug\Tp3.exe
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\bin\Debug\Tp3.pdb
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.AssemblyReference.cache
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.SuggestedBindingRedirects.cache
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.Formulario1.resources
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.Informes.resources
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.Properties.Resources.resources
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.GenerateResource.cache
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.csproj.CoreCompileInputs.cache
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.exe
+D:\GitProjects\TPSIM3\TPSIM3\Tp3\Tp3\obj\Debug\Tp3.pdb
