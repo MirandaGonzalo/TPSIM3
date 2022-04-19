@@ -8,6 +8,9 @@ namespace Tp3
     public partial class Formulario1 : Form
     {
         public static List<decimal> listaDist;
+        public static long mediaNormal;
+        public static long desviacionNormal;
+        public static string tipoDistribucion;
         public Formulario1()
         {
             
@@ -64,6 +67,7 @@ namespace Tp3
                     //uniforme a b
                     if (rbDistUniformeAb.Checked)
                     {
+                        tipoDistribucion = "UNIFORME";
                         if (!validarUniformeNormal(txtValorA.Text,TxtValorB.Text))
                         {
                             MessageBox.Show("Se deben completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -116,6 +120,7 @@ namespace Tp3
 
                     if (RbNormal.Checked)
                     {
+                        tipoDistribucion = "NORMAL";
                         if ((cantMuestras % 2) == 0)
                         {
                             cantMuestras = cantMuestras / 2;
@@ -133,11 +138,11 @@ namespace Tp3
                         }
                         else
                         {
-                            var mediaNormal = Convert.ToInt64(txtValorA.Text);
-                            var desviacion = Convert.ToInt64(TxtValorB.Text);
+                             mediaNormal = Convert.ToInt64(txtValorA.Text);
+                             desviacionNormal = Convert.ToInt64(TxtValorB.Text);
 
                             generador.mediaNormal = mediaNormal;
-                            generador.desviacionNormal = desviacion;
+                            generador.desviacionNormal = desviacionNormal;
 
                             Random random1 = new Random();
                             Random random2 = new Random();
@@ -165,7 +170,7 @@ namespace Tp3
                         else
                         {
                             Random random = new Random();
-                            var listaPoisson = new List<Int64>();
+                            //var listaPoisson = new List<Int64>();
                             var lambda = double.Parse(txtMediaExpo.Text);
                             for (var i = 0; cantMuestras > i; i++)
                             {
@@ -264,6 +269,11 @@ namespace Tp3
                 DgvTabla.Rows.Add(fila);
             }
             DgvTabla.Visible = true;
+        }
+
+        private void RbPoisson_CheckedChanged(object sender, EventArgs e)
+        {
+            limpiarCampoExpo();
         }
     }
 }

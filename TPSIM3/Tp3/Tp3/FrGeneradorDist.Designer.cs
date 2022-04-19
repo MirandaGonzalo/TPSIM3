@@ -146,6 +146,7 @@ namespace Tp3
             this.RbPoisson.TabStop = true;
             this.RbPoisson.Text = "Poisson";
             this.RbPoisson.UseVisualStyleBackColor = true;
+            this.RbPoisson.CheckedChanged += new System.EventHandler(this.RbPoisson_CheckedChanged);
             // 
             // TxtCantMuestras
             // 
