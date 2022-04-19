@@ -14,6 +14,7 @@ namespace Tp3
 {
     public partial class Informes : Form
     {
+        public static decimal AcumuladorMedia;
         public static decimal Acumulado;
         public Informes()
         {
@@ -89,9 +90,9 @@ namespace Tp3
                     //creamos aux2 para modificar el limite superior del intervalo
                     //ver esto del aux 2 
                 
-                    var aux2 = (decimal)0.00001;
+                    var aux2 = (decimal)0.0000001;
                 
-                    var limiteSuperior = menor + AcumuladovalorEntreIntervalo;
+                    var limiteSuperior = menor + AcumuladovalorEntreIntervalo ;
                     AcumuladovalorEntreIntervalo += valorEntreIntervalo;
                     limitesSup.Add(limiteSuperior);
                 }
@@ -103,7 +104,7 @@ namespace Tp3
                     {
                         if (serieNumeros[iteracion] <= limitesSup[j])
                         {
-                            //AcumuladorMedia += (double)numeros[i];
+                            AcumuladorMedia += (decimal)serieNumeros[iteracion];
                             frecObservada[j]++;
                             break;
                         }
@@ -115,12 +116,52 @@ namespace Tp3
                 //var items = new List<Registro>();
                 //var primero = true;
 
+                var auxiliar = mayor - menor + 1;
+                var menorAux = menor;
                 //var items = calcularTablaFrec(cantidadInt, menor, frecObservada, limitesSup, leng);
+                if(distribucion == "POISSON")
+                {
+                    limitesSup.Clear();
+                    frecObservada.Clear();
+                    for (int i = 0; i < auxiliar; i++)
+                    {
+                        frecObservada.Add(0);
 
-                if(distribucion == "UNIFORME"){
+                        var limiteSuperior = menorAux;
+
+                        menorAux++;
+
+                        limitesSup.Add(limiteSuperior);
+                    }
+
+
+                    for (int iteracion = 0; iteracion < leng; iteracion++)
+                    {
+                        for (int j = 0; j < auxiliar; j++)
+                        {
+                            if (serieNumeros[iteracion] == limitesSup[j])
+                            {
+                                Acumulado += serieNumeros[iteracion];
+                                frecObservada[j]++;
+                                break;
+                            }
+                        }
+                    }
+                    var lambda = (decimal)(Acumulado / leng);
+                    var items = calcularTablaFrecPoisson(lambda,(int)auxiliar,frecObservada ,(int)menor);
+                    mostrarEnTabla(items);
+
+
+                    //creamos 
+
+                }
+
+
+                if (distribucion == "UNIFORME"){
                     var items = calcularTablaFrecUniforme(cantidadInt, menor, frecObservada, limitesSup, leng);
                     mostrarEnTabla(items);
                     relizarHistograma(items);
+                    
                 }
 
                 if(distribucion == "NORMAL")
@@ -131,10 +172,37 @@ namespace Tp3
 
                     relizarHistograma(itemss);
                 }
+                if (distribucion == "EXPONENCIAL")
+                {
+                    var items = calcularTablaFrecExponencial(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.valorMediaExponencial);
+                    mostrarEnTabla(items);
+                    relizarHistograma(items);
+
+                    //HACER LA COMPARACION CON CHI TABU
+                }
+
                 
             }
         }
 
+        public List<Registro> calcularTablaFrecPoisson(decimal lambda , int cantIntervalo , List<int> frecObservada , int menor  )
+        {
+            var items = new List<Registro>();
+            for (int a = 0; a < cantIntervalo; a++)
+            {
+                var registro = new Registro();
+
+                registro.Hasta = menor;
+                registro.FrecuenciaObservada = frecObservada[a];
+                registro.FrecuenciaEsperada = 5;
+                //USAR LABDA PARA EL CALCULO 
+                menor++;
+                items.Add(registro);
+
+            }
+            return items;
+
+        }
         public List<Registro> calcularTablaFrecUniforme(int cantidadInt,decimal menor, List<int> frecObservada ,List<decimal> limitesSup,int leng)
         {
             var primero = true;
@@ -175,6 +243,61 @@ namespace Tp3
             return items;
         }
 
+        public List<Registro> calcularTablaFrecExponencial(int cantidadInt, decimal menor, List<int> frecObservada, List<decimal> limitesSup, int leng, decimal mediaExpo)
+        {
+            var primero = true;
+            var items = new List<Registro>();
+            
+            for (int a = 0; a < cantidadInt; a++)
+            {
+                //creamos la variable registro y le asignamos sus atributos
+                var registro = new Registro();
+                //el primer registro el valor desde del primer intervalo debe ser 0.
+                if (primero)
+                {
+                    registro.Desde = menor;
+                    primero = false;
+                }
+                else
+                {
+                    //limite sup del a-1
+                    decimal desde = Math.Truncate(10000 * limitesSup[a - 1]) / 10000;
+                    registro.Desde = desde;
+
+                }
+                // aca guardamos los valores de cada registro que seran los datos que mostraremos 
+                // en la tabla de frecuencias
+                decimal has = Math.Truncate(10000 * limitesSup[a]) / 10000;
+                registro.Hasta = (decimal)(has);
+                decimal marcaClase = Math.Truncate(10000 * ((decimal)((registro.Hasta + registro.Desde) / 2))) / 10000;
+                registro.MarcaClase = marcaClase;
+                decimal frecRel = frecObservada[a] / (decimal)leng;
+                decimal frecRelativa = Math.Truncate(10000 * frecRel) / 10000;
+                registro.FrecuenciaRelativa = frecRel;
+                registro.FrecuenciaObservada = frecObservada[a];
+
+                double aux = (-1 / (double)mediaExpo) * (double)has;
+
+                double aux2 = (-1 / (double)mediaExpo) * (double)registro.Desde;
+
+                var probabilidadAcu = (1 - Math.Exp(aux)) - ((1 - Math.Exp(aux2))) ;
+
+                var frecEsperada = probabilidadAcu * leng;
+
+                double frecEsperadaTruncada = Math.Truncate(10000 * frecEsperada) / 10000;
+
+                registro.FrecuenciaEsperada = (decimal)frecEsperadaTruncada;
+
+                // se muestra la relativa pero es la p()
+
+                double probabilidadTruncada = Math.Truncate(10000 * probabilidadAcu) / 10000;
+                registro.FrecuenciaRelativa = (decimal)probabilidadTruncada;
+
+                items.Add(registro);
+            }
+
+            return items;
+        }
         public List<Registro> calcularTablaFrecNormal(int cantidadInt, decimal menor, List<int> frecObservada, List<decimal> limitesSup, int leng,long mediaNormal , long desviacion)
         {
             var primero = true;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Windows.Forms;
 using Tp3.Servicios;
 
@@ -11,6 +12,7 @@ namespace Tp3
         public static long mediaNormal;
         public static long desviacionNormal;
         public static string tipoDistribucion;
+        public static decimal valorMediaExponencial;
         public Formulario1()
         {
             
@@ -96,6 +98,7 @@ namespace Tp3
                     //exponencial negativa
                     if (rbExponencial.Checked)
                     {
+                        tipoDistribucion = "EXPONENCIAL";
                         Random random = new Random();
 
                         if (!validarExponencialPoisson(txtMediaExpo.Text))
@@ -105,7 +108,8 @@ namespace Tp3
                         }
                         else
                         {
-                            generador.valorMedia = decimal.Parse(txtMediaExpo.Text);
+                            valorMediaExponencial = decimal.Parse(txtMediaExpo.Text);
+                            generador.valorMedia = valorMediaExponencial;
 
 
                             for (var i = 0; cantMuestras > i; i++)
@@ -117,7 +121,7 @@ namespace Tp3
                             }
                         }
                     }
-
+                    //GENERADOR DISTRIBUCION NORMAL
                     if (RbNormal.Checked)
                     {
                         tipoDistribucion = "NORMAL";
@@ -129,8 +133,6 @@ namespace Tp3
                         {
                             cantMuestras = (cantMuestras / 2) + 1;
                         }
-
-                        var listaNormal = new List<decimal>();
                         if (!validarUniformeNormal(txtValorA.Text, TxtValorB.Text))
                         {
                             MessageBox.Show("Se deben completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -145,12 +147,12 @@ namespace Tp3
                             generador.desviacionNormal = desviacionNormal;
 
                             Random random1 = new Random();
-                            Random random2 = new Random();
 
                             for (var i = 0; cantMuestras > i; i++)
                             {
                                 double numeroRND1 = random1.NextDouble();
-                                double numeroRND2 = random2.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND2 = random1.NextDouble();
                                 var n1 = (decimal)generador.generarNormalN1(generador, numeroRND1, numeroRND2);
                                 var n2 = (decimal)generador.generarNormalN2(generador, numeroRND1, numeroRND2);
 
@@ -162,6 +164,7 @@ namespace Tp3
 
                     if (RbPoisson.Checked)
                     {
+                        tipoDistribucion = "POISSON";
                         if (!validarExponencialPoisson(txtMediaExpo.Text))
                         {
                             MessageBox.Show("Se deben completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

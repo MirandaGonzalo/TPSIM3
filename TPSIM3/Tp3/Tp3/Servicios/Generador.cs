@@ -38,7 +38,9 @@ namespace Tp3.Servicios
             //usamos media U(valor promedio de ocurrencia de un evento) en ves de lambda 
             double log = (1 - numeroRND);
 
-            var X = (double)(-generador.valorMedia) * Math.Log(log);
+            double calculoLog = (Math.Log(log));
+
+            var X = (double)(-generador.valorMedia) * calculoLog;
 
             var XTrunca = (double)(Math.Truncate(X * 10000) / 10000);
             
@@ -54,7 +56,7 @@ namespace Tp3.Servicios
             double aux2 = 2 * 3.1415926535897931 * numeroRnd2;
 
 
-            var normal = (((decimal)Math.Sqrt(aux1) * (decimal)(Math.Cos(aux2))) *gen.desviacionNormal + gen.mediaNormal);
+            var normal = (((decimal)Math.Sqrt(aux1) * (decimal)(Math.Cos(aux2))) * gen.desviacionNormal + gen.mediaNormal);
 
             var normalTrunca = (decimal)(Math.Truncate(normal * 10000) / 10000);
             return normalTrunca;
@@ -63,7 +65,7 @@ namespace Tp3.Servicios
         {
             double aux1 = -2 * Math.Log(numeroRnd);
 
-            double aux2 = 2 * 3.1415926535897931 * numeroRnd2;
+            double aux2 = 2 * 3.141 * numeroRnd2;
 
 
             decimal normal = (((decimal)Math.Sqrt(aux1) * (decimal)(Math.Sin(aux2))) * (decimal)gen.desviacionNormal + (decimal)gen.mediaNormal);
