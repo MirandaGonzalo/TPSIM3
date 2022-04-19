@@ -9,8 +9,8 @@ namespace Tp3
     public partial class Formulario1 : Form
     {
         public static List<decimal> listaDist;
-        public static long mediaNormal;
-        public static long desviacionNormal;
+        public static decimal mediaNormal;
+        public static decimal desviacionNormal;
         public static string tipoDistribucion;
         public static decimal valorMediaExponencial;
         public Formulario1()
@@ -108,7 +108,7 @@ namespace Tp3
                         }
                         else
                         {
-                            valorMediaExponencial = decimal.Parse(txtMediaExpo.Text);
+                            var valorMediaExponencial = decimal.Parse(txtMediaExpo.Text);
                             generador.valorMedia = valorMediaExponencial;
 
 
@@ -140,8 +140,8 @@ namespace Tp3
                         }
                         else
                         {
-                             mediaNormal = Convert.ToInt64(txtValorA.Text);
-                             desviacionNormal = Convert.ToInt64(TxtValorB.Text);
+                             var mediaNormal = Convert.ToInt64(txtValorA.Text);
+                             var desviacionNormal = Convert.ToInt64(TxtValorB.Text);
 
                             generador.mediaNormal = mediaNormal;
                             generador.desviacionNormal = desviacionNormal;
@@ -254,10 +254,35 @@ namespace Tp3
             limpiarCampoNormal();
         }
 
+        private decimal calcularMedia(List<decimal> valores)
+        {
+            decimal aux = 0;
+            for (int i = 0; i < valores.Count; i++)
+            {
+                aux += valores[i];
+            }
+            return aux / valores.Count;
+        }
+
+        private decimal calcularDesviacionMedia(List<decimal> listaDist, decimal media)
+        {
+            decimal aux = 0;
+            for (int i = 0; i < listaDist.Count; i++)
+            {
+                aux += (listaDist[i] - media) * (listaDist[i] - media);
+            }
+            decimal result = aux / (listaDist.Count - 1);
+            var result2 = (double)result;
+            return (decimal)Math.Sqrt(result2);
+        }
 
         private void botonInforme_Click(object sender, EventArgs e)
         {
+            var media = calcularMedia(listaDist);
+            Formulario1.mediaNormal = media;
+            Formulario1.desviacionNormal = calcularDesviacionMedia(listaDist, media);
             Informes frm2 = new Informes();
+            Formulario1.valorMediaExponencial = media;
             frm2.Show();
         }
 

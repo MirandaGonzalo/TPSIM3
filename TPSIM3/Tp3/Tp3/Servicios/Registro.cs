@@ -15,6 +15,10 @@ namespace Tp3.Servicios
         public decimal FrecuenciaEsperada { get; set; }
         public decimal FrecuenciaRelativa { get; set; }
         public decimal EstadisticoMuestra { get; set; }
+        public decimal ProbabilidadEsperada { get; set; }
         public decimal EstadisticoMuestraAcumulado { get; set; }
     }
+
+
+
 }

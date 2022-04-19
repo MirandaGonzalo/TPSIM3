@@ -14,9 +14,9 @@ namespace Tp3.Servicios
 
         public decimal valorMedia { set; get; }
 
-        public Int64 mediaNormal { set; get; }
+        public decimal mediaNormal { set; get; }
 
-        public Int64 desviacionNormal { set; get; }
+        public decimal desviacionNormal { set; get; }
 
 
         public decimal generarSerieDistribucionUniformeAB(Generador generador,double numeroRND)
