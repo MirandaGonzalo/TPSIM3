@@ -29,14 +29,12 @@ namespace Tp3
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.botonInforme = new System.Windows.Forms.Button();
             this.DgvInforme = new System.Windows.Forms.DataGridView();
-            this.cbIntervalos = new System.Windows.Forms.ComboBox();
-            this.graficoHistrograma = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Desde = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Hasta = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MarcaClase = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,13 +42,17 @@ namespace Tp3
             this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FrecuenciaEsperada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbIntervalos = new System.Windows.Forms.ComboBox();
+            this.graficoHistrograma = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dgvChiCuadrado = new System.Windows.Forms.DataGridView();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvInforme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.graficoHistrograma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiCuadrado)).BeginInit();
@@ -92,35 +94,6 @@ namespace Tp3
             this.DgvInforme.RowHeadersWidth = 51;
             this.DgvInforme.Size = new System.Drawing.Size(1127, 234);
             this.DgvInforme.TabIndex = 9;
-            // 
-            // cbIntervalos
-            // 
-            this.cbIntervalos.FormattingEnabled = true;
-            this.cbIntervalos.Items.AddRange(new object[] {
-            "5 intervalos",
-            "8 intervalos",
-            "10 intervalos",
-            "12 intervalos"});
-            this.cbIntervalos.Location = new System.Drawing.Point(133, 38);
-            this.cbIntervalos.Name = "cbIntervalos";
-            this.cbIntervalos.Size = new System.Drawing.Size(121, 21);
-            this.cbIntervalos.TabIndex = 10;
-            // 
-            // graficoHistrograma
-            // 
-            chartArea2.Name = "ChartArea1";
-            this.graficoHistrograma.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.graficoHistrograma.Legends.Add(legend2);
-            this.graficoHistrograma.Location = new System.Drawing.Point(100, 376);
-            this.graficoHistrograma.Name = "graficoHistrograma";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.graficoHistrograma.Series.Add(series2);
-            this.graficoHistrograma.Size = new System.Drawing.Size(534, 300);
-            this.graficoHistrograma.TabIndex = 11;
-            this.graficoHistrograma.Text = "chart1";
             // 
             // Desde
             // 
@@ -167,38 +140,49 @@ namespace Tp3
             this.FrecuenciaEsperada.Name = "FrecuenciaEsperada";
             this.FrecuenciaEsperada.Width = 125;
             // 
+            // cbIntervalos
+            // 
+            this.cbIntervalos.FormattingEnabled = true;
+            this.cbIntervalos.Items.AddRange(new object[] {
+            "5 intervalos",
+            "8 intervalos",
+            "10 intervalos",
+            "12 intervalos"});
+            this.cbIntervalos.Location = new System.Drawing.Point(133, 38);
+            this.cbIntervalos.Name = "cbIntervalos";
+            this.cbIntervalos.Size = new System.Drawing.Size(121, 21);
+            this.cbIntervalos.TabIndex = 10;
+            // 
+            // graficoHistrograma
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.graficoHistrograma.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.graficoHistrograma.Legends.Add(legend1);
+            this.graficoHistrograma.Location = new System.Drawing.Point(64, 340);
+            this.graficoHistrograma.Name = "graficoHistrograma";
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.graficoHistrograma.Series.Add(series1);
+            this.graficoHistrograma.Size = new System.Drawing.Size(534, 300);
+            this.graficoHistrograma.TabIndex = 11;
+            this.graficoHistrograma.Text = "chart1";
+            // 
             // dgvChiCuadrado
             // 
             this.dgvChiCuadrado.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvChiCuadrado.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
             this.Column2,
+            this.FO,
+            this.FE,
             this.Column3,
             this.Column4});
-            this.dgvChiCuadrado.Location = new System.Drawing.Point(649, 376);
+            this.dgvChiCuadrado.Location = new System.Drawing.Point(604, 376);
             this.dgvChiCuadrado.Name = "dgvChiCuadrado";
-            this.dgvChiCuadrado.Size = new System.Drawing.Size(449, 150);
+            this.dgvChiCuadrado.Size = new System.Drawing.Size(615, 150);
             this.dgvChiCuadrado.TabIndex = 12;
-            // 
-            // Column1
-            // 
-            this.Column1.HeaderText = "Desde";
-            this.Column1.Name = "Column1";
-            // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Hasta";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "C()";
-            this.Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            this.Column4.HeaderText = "C() Acu";
-            this.Column4.Name = "Column4";
             // 
             // label2
             // 
@@ -218,11 +202,41 @@ namespace Tp3
             this.label3.TabIndex = 14;
             this.label3.Text = "label3";
             // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Desde";
+            this.Column1.Name = "Column1";
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Hasta";
+            this.Column2.Name = "Column2";
+            // 
+            // FO
+            // 
+            this.FO.HeaderText = "FO";
+            this.FO.Name = "FO";
+            // 
+            // FE
+            // 
+            this.FE.HeaderText = "FE";
+            this.FE.Name = "FE";
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "C()";
+            this.Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            this.Column4.HeaderText = "C() Acu";
+            this.Column4.Name = "Column4";
+            // 
             // Informes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1171, 645);
+            this.ClientSize = new System.Drawing.Size(1231, 645);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvChiCuadrado);
@@ -258,11 +272,13 @@ namespace Tp3
         private System.Windows.Forms.DataGridViewTextBoxColumn Column8;
         private System.Windows.Forms.DataGridViewTextBoxColumn FrecuenciaEsperada;
         private System.Windows.Forms.DataGridView dgvChiCuadrado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FE;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
     }
 }

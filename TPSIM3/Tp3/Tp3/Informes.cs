@@ -583,7 +583,6 @@ namespace Tp3
                 var estaditicoM = CalcularEstadistico(itemsChi[i].FrecuenciaObservada, itemsChi[i].FrecuenciaEsperada);
                 acumulado += estaditicoM;
                 Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
-                //LOLO AGRUPAAA SI ES FE < 5
                 var fila = new string[]
                {
                             //items[i].Desde.ToString(),
