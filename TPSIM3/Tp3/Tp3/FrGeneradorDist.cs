@@ -161,7 +161,67 @@ namespace Tp3
                             }
                         }
                     }
+                    if (RbConvolucion.Checked == true)
+                    {
+                        tipoDistribucion = "NORMAL";
+                        if ((cantMuestras % 2) == 0)
+                        {
+                            cantMuestras = cantMuestras / 2;
+                        }
+                        else
+                        {
+                            cantMuestras = (cantMuestras / 2) + 1;
+                        }
+                        if (!validarUniformeNormal(txtValorA.Text, TxtValorB.Text))
+                        {
+                            MessageBox.Show("Se deben completar todos los campos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            lblEstado.Text = "Error!";
+                        }
+                        else
+                        {
+                            var mediaNormal = Convert.ToInt64(txtValorA.Text);
+                            var desviacionNormal = Convert.ToInt64(TxtValorB.Text);
 
+                            generador.mediaNormal = mediaNormal;
+                            generador.desviacionNormal = desviacionNormal;
+
+                            Random random1 = new Random();
+
+                            for (var i = 0; cantMuestras > i; i++)
+                            {
+                                double numeroRND1 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND2 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND3 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND4 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND5 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND6 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND7 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND8 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND9 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND10 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND11 = random1.NextDouble();
+                                Thread.Sleep(1);
+                                double numeroRND12 = random1.NextDouble();
+
+                                double suma = numeroRND1 + numeroRND2 + numeroRND3 + numeroRND4 + numeroRND5 + numeroRND6 + numeroRND7 + numeroRND8 + numeroRND9 + numeroRND10 + numeroRND11 + numeroRND12;
+                                var n1 = (decimal)((suma - 6) * desviacionNormal + mediaNormal);
+
+
+                                listaDist.Add(n1);
+                            }   
+                        }
+                    }
+                    
                     if (RbPoisson.Checked)
                     {
                         tipoDistribucion = "POISSON";
@@ -302,6 +362,11 @@ namespace Tp3
         private void RbPoisson_CheckedChanged(object sender, EventArgs e)
         {
             limpiarCampoExpo();
+        }
+
+        private void RbConvolucion_CheckedChanged(object sender, EventArgs e)
+        {
+            limpiarCampoNormal();
         }
     }
 }

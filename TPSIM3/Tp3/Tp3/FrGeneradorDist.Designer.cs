@@ -50,6 +50,7 @@ namespace Tp3
             this.lblEstado = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.RbConvolucion = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.DgvTabla)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -115,7 +116,7 @@ namespace Tp3
             // rbExponencial
             // 
             this.rbExponencial.AutoSize = true;
-            this.rbExponencial.Location = new System.Drawing.Point(135, 3);
+            this.rbExponencial.Location = new System.Drawing.Point(115, 3);
             this.rbExponencial.Name = "rbExponencial";
             this.rbExponencial.Size = new System.Drawing.Size(86, 17);
             this.rbExponencial.TabIndex = 6;
@@ -127,19 +128,19 @@ namespace Tp3
             // RbNormal
             // 
             this.RbNormal.AutoSize = true;
-            this.RbNormal.Location = new System.Drawing.Point(270, 3);
+            this.RbNormal.Location = new System.Drawing.Point(207, 3);
             this.RbNormal.Name = "RbNormal";
-            this.RbNormal.Size = new System.Drawing.Size(58, 17);
+            this.RbNormal.Size = new System.Drawing.Size(53, 17);
             this.RbNormal.TabIndex = 7;
             this.RbNormal.TabStop = true;
-            this.RbNormal.Text = "Normal";
+            this.RbNormal.Text = "Muller";
             this.RbNormal.UseVisualStyleBackColor = true;
             this.RbNormal.CheckedChanged += new System.EventHandler(this.RbNormal_CheckedChanged);
             // 
             // RbPoisson
             // 
             this.RbPoisson.AutoSize = true;
-            this.RbPoisson.Location = new System.Drawing.Point(372, 3);
+            this.RbPoisson.Location = new System.Drawing.Point(351, 3);
             this.RbPoisson.Name = "RbPoisson";
             this.RbPoisson.Size = new System.Drawing.Size(62, 17);
             this.RbPoisson.TabIndex = 8;
@@ -266,14 +267,27 @@ namespace Tp3
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel2.Controls.Add(this.RbConvolucion);
             this.panel2.Controls.Add(this.rbDistUniformeAb);
             this.panel2.Controls.Add(this.rbExponencial);
             this.panel2.Controls.Add(this.RbNormal);
             this.panel2.Controls.Add(this.RbPoisson);
-            this.panel2.Location = new System.Drawing.Point(45, 69);
+            this.panel2.Location = new System.Drawing.Point(36, 69);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(452, 25);
+            this.panel2.Size = new System.Drawing.Size(461, 31);
             this.panel2.TabIndex = 19;
+            // 
+            // RbConvolucion
+            // 
+            this.RbConvolucion.AutoSize = true;
+            this.RbConvolucion.Location = new System.Drawing.Point(276, 3);
+            this.RbConvolucion.Name = "RbConvolucion";
+            this.RbConvolucion.Size = new System.Drawing.Size(53, 17);
+            this.RbConvolucion.TabIndex = 9;
+            this.RbConvolucion.TabStop = true;
+            this.RbConvolucion.Text = "Conv.";
+            this.RbConvolucion.UseVisualStyleBackColor = true;
+            this.RbConvolucion.CheckedChanged += new System.EventHandler(this.RbConvolucion_CheckedChanged);
             // 
             // Formulario1
             // 
@@ -324,6 +338,7 @@ namespace Tp3
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RadioButton RbConvolucion;
     }
 }
 

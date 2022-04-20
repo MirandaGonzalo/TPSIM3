@@ -19,6 +19,9 @@ namespace Tp3
         public Informes()
         {
             InitializeComponent();
+            dgvKs.AllowUserToAddRows = false;
+            dgvChiCuadrado.AllowUserToAddRows = false;
+            DgvInforme.AllowUserToAddRows = false;
         }
 
         private int getCantIntervalos(string selected)
@@ -82,8 +85,13 @@ namespace Tp3
 
         private void botonInforme_Click(object sender, EventArgs e)
         {
+            label2.Visible = true;
+            Acumulado = 0;
+            var tablaChi = llenarTablaChiTabulado();
+            //tablaTabulado = llenarTablaChiTabulado():
             DgvInforme.Rows.Clear();
             dgvChiCuadrado.Rows.Clear();
+            dgvKs.Rows.Clear();
             string selected = this.cbIntervalos.GetItemText(this.cbIntervalos.SelectedItem);
             var cantidadInt = getCantIntervalos(selected);
             if (cantidadInt < 0)
@@ -102,6 +110,7 @@ namespace Tp3
                 var mayor = serieNumeros[0];
                 var menor = serieNumeros[0];
                 
+                
                 //busco el mayor
                 for (int i = 0; i < leng; i++)
                 {
@@ -118,6 +127,7 @@ namespace Tp3
                 decimal valorEntreIntervalo = (decimal)(mayor - menor) / (decimal)(cantidadInt);
 
                 decimal AcumuladovalorEntreIntervalo = valorEntreIntervalo;
+
 
                 if(distribucion.Equals( "POISSON"))
                 {
@@ -139,26 +149,42 @@ namespace Tp3
 
                     for (int iteracion = 0; iteracion < leng; iteracion++)
                     {
-                        Acumulado = 0;
+                        
                         for (int j = 0; j < auxiliar; j++)
                         {
                             if (serieNumeros[iteracion] == limitesSup[j])
-                            {
-                                Acumulado += serieNumeros[iteracion];
+                            { 
                                 frecObservada[j]++;
                                 break;
                             }
                         }
                     }
                     var lambda = Formulario1.valorMediaExponencial;
-                    label2.Text = lambda.ToString();
+                    
                     var items = calcularTablaFrecPoisson(lambda,(int)auxiliar,frecObservada ,(int)menor, leng);
                     mostrarEnTabla(items);
-                    mostrarTablaChi(items);
+                    var cantIntervalo = mostrarTablaChi(items);
+                    //relizarHistograma(items);
+                    var gradosLibertad = cantIntervalo - 1 - 1;
+
+                    var valorTabulado = devolverTabulado(tablaChi, gradosLibertad);
+                    if(Acumulado > valorTabulado)
+                    {
+                        string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO (" + Acumulado.ToString() + ">" + valorTabulado.ToString() + ")";
+                        label2.Text = hipo;
+                    }
+                    else
+                    {
+                        string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" + Acumulado.ToString() + "<" + valorTabulado.ToString() + ")";
+                        label2.Text = hipo;
+                    }
+                    
                     relizarHistograma(items);
+
                 }
                 else
                 {
+                    decimal mayorKS;
                     List<Registro> items;
                     if (distribucion.Equals("UNIFORME"))
                     {
@@ -166,6 +192,28 @@ namespace Tp3
 
                         frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
                         items = calcularTablaFrecUniforme(cantidadInt, menor, frecObservada, limitesSup, leng);
+
+                        mostrarEnTabla(items);
+                        var cantIntervalo = mostrarTablaChi(items);
+                        //relizarHistograma(items);
+                        var gradosLibertad = cantIntervalo - 1 ;
+
+                        var valorTabulado = devolverTabulado(tablaChi, gradosLibertad);
+                        if (Acumulado > valorTabulado)
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO ("+Acumulado.ToString() +">"+valorTabulado.ToString()+")" ;
+                            label2.Text = hipo ;
+                        }
+                        else
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" +Acumulado.ToString() + "<" + valorTabulado.ToString()+ ")" ;
+                            label2.Text = hipo;
+                        }
+
+
+                        mayorKS = mostrarTablaKs(items);
+                        relizarHistograma(items);
+
                     }
 
                     else if (distribucion == "NORMAL")
@@ -177,8 +225,26 @@ namespace Tp3
 
                         items = calcularTablaFrecNormal(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.mediaNormal, Formulario1.desviacionNormal);
 
-                        label2.Text = Formulario1.mediaNormal.ToString();
-                        label3.Text = Formulario1.desviacionNormal.ToString();
+                        mostrarEnTabla(items);
+                        
+                        var cantIntervalo = mostrarTablaChi(items);
+                        //relizarHistograma(items);
+                        var gradosLibertad = cantIntervalo - 1 - 2;
+
+                        var valorTabulado = devolverTabulado(tablaChi, gradosLibertad);
+                        if (Acumulado > valorTabulado)
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO (" + Acumulado.ToString() + ">" + valorTabulado.ToString() + ")";
+                            label2.Text = hipo;
+                        }
+                        else
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" + Acumulado.ToString() + "<" + valorTabulado.ToString() + ")";
+                            label2.Text = hipo;
+                        }
+                        mayorKS = mostrarTablaKs(items);
+                        relizarHistograma(items);
+
                     }
                     else
                     {
@@ -189,10 +255,31 @@ namespace Tp3
 
                         items = calcularTablaFrecExponencial(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.valorMediaExponencial);
                         //HACER LA COMPARACION CON CHI TABU
+                        mostrarEnTabla(items);
+
+                        var cantIntervalo = mostrarTablaChi(items);
+                        //relizarHistograma(items);
+                        var gradosLibertad = cantIntervalo - 1 - 1;
+
+                        var valorTabulado = devolverTabulado(tablaChi, gradosLibertad);
+                        if (Acumulado > valorTabulado)
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO (" + Acumulado.ToString() + ">" + valorTabulado.ToString() + ")";
+                            label2.Text = hipo;
+                        }
+                        else
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" + Acumulado.ToString() + "<" + valorTabulado.ToString() + ")";
+                            label2.Text = hipo;
+                        }
+                        mayorKS = mostrarTablaKs(items);
+                        relizarHistograma(items);
+                        mayorKS = mostrarTablaKs(items);
+                        relizarHistograma(items);
                     }
-                    mostrarEnTabla(items);
-                    mostrarTablaChi(items);
-                    relizarHistograma(items);
+                    //mostrarEnTabla(items);
+                    //mostrarTablaChi(items);
+                    //relizarHistograma(items);
                 }
             }
         }
@@ -216,6 +303,9 @@ namespace Tp3
 
                 registro.Hasta = menor;
                 registro.FrecuenciaObservada = frecObservada[a];
+                decimal frecRel = frecObservada[a] / (decimal)leng;
+                decimal frecRelativa = Math.Truncate(10000 * frecRel) / 10000;
+                registro.FrecuenciaRelativa = frecRelativa;
 
                 var aux1 = Math.Pow((double)lambda, menor);
 
@@ -270,7 +360,7 @@ namespace Tp3
                 registro.MarcaClase = marcaClase;
                 decimal frecRel = frecObservada[a] / (decimal)leng;
                 decimal frecRelativa = Math.Truncate(10000 * frecRel) / 10000;
-                registro.FrecuenciaRelativa = frecRel;
+                registro.FrecuenciaRelativa = frecRelativa;
                 registro.FrecuenciaObservada = frecObservada[a];
                 registro.FrecuenciaEsperada = frecEsperada;
                 registro.ProbabilidadEsperada = (frecEsperada / leng);
@@ -432,7 +522,7 @@ namespace Tp3
             return hasta;
         }
 
-        public void mostrarTablaChi(List<Registro> items)
+        public int mostrarTablaChi(List<Registro> items)
         {
             var itemsChi = new List<Registro>();
             List<decimal> agrupados;
@@ -574,7 +664,7 @@ namespace Tp3
                 acumulado += estaditicoM;
                 Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
                 var fila = new string[]
-               {
+                {
                             //items[i].Desde.ToString(),
                             //1.ToString(),         
                             itemsChi[i].Desde.ToString(),
@@ -583,14 +673,15 @@ namespace Tp3
                             itemsChi[i].FrecuenciaEsperada.ToString(),
                             estaditicoM.ToString(),
                             Acumulado.ToString()
-               };
+                 };
                 dgvChiCuadrado.Rows.Add(fila);
             }
-            //NO ME APARECEN LAS PROPIEDADES DE LA TABLA ASI QUE CARGO TODOS LOS VALORES 
-            //CUANDO VEAS EL PROYECTO EN TU ORDENADOR CARGALO UwU
-            //LE PUSE CUALQUIER NOMBRE A LOS ATRIBUTOS DSP CAMBIALOS
-            /*
-            List<Registro> itemsKs;
+
+            return itemsChi.Count();
+        }
+
+        public decimal mostrarTablaKs(List<Registro> items)
+        {
             var cantNumeros = Formulario1.listaDist.Count;
             decimal acumuladaPO = 0;
             decimal acumuladaPE = 0;
@@ -609,36 +700,35 @@ namespace Tp3
                     primero = false;
                 }
                 if (valorAbs > mayor) mayor = valorAbs;
-                
+
                 var fila = new string[]
-                   {       
-                        itemsChi[i].Desde.ToString(),
-                        itemsChi[i].Hasta.ToString(),
-                        itemsChi[i].FrecuenciaObservada.ToString(),
-                        itemsChi[i].FrecuenciaEsperada.ToString(),
+                   {
+                        items[i].Desde.ToString(),
+                        items[i].Hasta.ToString(),
+                        items[i].FrecuenciaObservada.ToString(),
+                        items[i].FrecuenciaEsperada.ToString(),
                         probabilidadObservada.ToString(),
-                        itemsChi[i].ProbabilidadEsperada.ToString(),
+                        items[i].ProbabilidadEsperada.ToString(),
                         acumuladaPO.ToString(),
                         acumuladaPE.ToString(),
                         valorAbs.ToString(),
                         mayor.ToString(),
                    };
-                
-                //dgvKs.Rows.Add(fila);
+
+                dgvKs.Rows.Add(fila);
             }
-            */
+            return mayor;
         }
         public void mostrarEnTabla(List<Registro> items)
         {
-            decimal acumulado = 0;
             for (int i = 0; i < items.Count(); i++)
             {
                 //PRUEBA DE BONDAD DE AJUSTE CON CHI
                 // calculamos el estadistico llamando a la funcion calcularEstadistico 
                 //Luego lo acumulamos en acumulado para obtener el valor de chi cuadrado
-                var estaditicoM = CalcularEstadistico(items[i].FrecuenciaObservada, items[i].FrecuenciaEsperada);
-                acumulado += estaditicoM;
-                Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
+                //var estaditicoM = CalcularEstadistico(items[i].FrecuenciaObservada, items[i].FrecuenciaEsperada);
+                //acumulado += estaditicoM;
+                //Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
                 //Armamos el string que mostraremos en la tabla grafica(dataGrid)
                 //DgvInforme += items[i].FrecuenciaRelativa;
                 string uwu = "--";
@@ -686,6 +776,49 @@ namespace Tp3
                 //con este metodo se visualiza en la tabla el histograma con cada valor de frec observada en su respectivo intervalo
                 ser.Points.Add((double)item.FrecuenciaObservada);
             }
+        }
+
+        public List<double> llenarTablaChiTabulado()
+        {
+            var tablaChi = new List<double>();
+
+            for (int i = 0; i < 20; i++)
+            {
+                tablaChi.Add(0);
+            }
+            tablaChi[0] = 0;
+            tablaChi[1] = 3.84;
+            tablaChi[2] = 5.99;
+            tablaChi[3] = 7.81;
+            tablaChi[4] = 9.49;
+            tablaChi[5] = 11.1;
+            tablaChi[6] = 12.6;
+            tablaChi[7] = 14.1;
+            tablaChi[8] = 15.5;
+            tablaChi[9] = 16.9;
+            tablaChi[10] = 18.3;
+            tablaChi[11] = 19.7;
+            tablaChi[12] = 21.0;
+            tablaChi[13] = 22.4;
+            tablaChi[14] = 23.7;
+            tablaChi[15] = 25.0;
+
+            return tablaChi;
+        }
+
+        public decimal devolverTabulado(List<double> tablaChi, int gradosLibertad)
+        {
+            decimal tabu;
+            if(gradosLibertad > 0)
+            {
+                tabu = (decimal)tablaChi[gradosLibertad];
+            }
+            else
+            {
+                tabu = 0;
+            }
+
+            return tabu;
         }
 
         private void Informes_Load(object sender, EventArgs e)
