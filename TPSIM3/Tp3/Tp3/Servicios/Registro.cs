@@ -17,6 +17,8 @@ namespace Tp3.Servicios
         public decimal EstadisticoMuestra { get; set; }
         public decimal ProbabilidadEsperada { get; set; }
         public decimal EstadisticoMuestraAcumulado { get; set; }
+        //Les puse este nombre pq son los que aparecen en el Excel xd
+        public decimal ProbabilidadObservada { get; set; }
     }
 
 

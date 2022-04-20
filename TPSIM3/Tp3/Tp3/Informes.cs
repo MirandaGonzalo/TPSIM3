@@ -119,8 +119,6 @@ namespace Tp3
 
                 decimal AcumuladovalorEntreIntervalo = valorEntreIntervalo;
 
-               
-                
                 if(distribucion.Equals( "POISSON"))
                 {
                     limitesSup.Clear();
@@ -159,51 +157,43 @@ namespace Tp3
                     mostrarTablaChi(items);
                     relizarHistograma(items);
                 }
+                else
+                {
+                    List<Registro> items;
+                    if (distribucion.Equals("UNIFORME"))
+                    {
+                        limitesSup = generarListaLimitesSup(menor, AcumuladovalorEntreIntervalo, valorEntreIntervalo, cantidadInt, frecObservada);
+
+                        frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
+                        items = calcularTablaFrecUniforme(cantidadInt, menor, frecObservada, limitesSup, leng);
+                    }
+
+                    else if (distribucion == "NORMAL")
+                    {
+                        limitesSup = generarListaLimitesSup(menor, AcumuladovalorEntreIntervalo, valorEntreIntervalo, cantidadInt, frecObservada);
+
+                        frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
 
 
-                if (distribucion == "UNIFORME"){
-                    limitesSup = generarListaLimitesSup(menor, AcumuladovalorEntreIntervalo, valorEntreIntervalo, cantidadInt, frecObservada);
+                        items = calcularTablaFrecNormal(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.mediaNormal, Formulario1.desviacionNormal);
 
-                    frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
-                    var items = calcularTablaFrecUniforme(cantidadInt, menor, frecObservada, limitesSup, leng);
+                        label2.Text = Formulario1.mediaNormal.ToString();
+                        label3.Text = Formulario1.desviacionNormal.ToString();
+                    }
+                    else
+                    {
+                        //Exponencial
+                        limitesSup = generarListaLimitesSup(menor, AcumuladovalorEntreIntervalo, valorEntreIntervalo, cantidadInt, frecObservada);
+
+                        frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
+
+                        items = calcularTablaFrecExponencial(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.valorMediaExponencial);
+                        //HACER LA COMPARACION CON CHI TABU
+                    }
                     mostrarEnTabla(items);
                     mostrarTablaChi(items);
                     relizarHistograma(items);
-                    
                 }
-
-                if(distribucion == "NORMAL")
-                {
-                    limitesSup = generarListaLimitesSup(menor, AcumuladovalorEntreIntervalo, valorEntreIntervalo, cantidadInt, frecObservada);
-
-                    frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
-
-                    
-                    var itemss = calcularTablaFrecNormal(cantidadInt, menor, frecObservada, limitesSup, leng,Formulario1.mediaNormal,Formulario1.desviacionNormal);
-
-                    label2.Text = Formulario1.mediaNormal.ToString();
-                    label3.Text = Formulario1.desviacionNormal.ToString();
-                    mostrarEnTabla(itemss);
-                    mostrarTablaChi(itemss);
-
-                    relizarHistograma(itemss);
-                }
-                if (distribucion == "EXPONENCIAL")
-                {
-                    limitesSup = generarListaLimitesSup(menor, AcumuladovalorEntreIntervalo, valorEntreIntervalo, cantidadInt, frecObservada);
-
-                    frecObservada = calcularFrecObservada(leng, cantidadInt, limitesSup, serieNumeros, frecObservada);
-
-                    var items = calcularTablaFrecExponencial(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.valorMediaExponencial);
-                   
-                    mostrarEnTabla(items);
-                    mostrarTablaChi(items);
-                    relizarHistograma(items);
-
-                    //HACER LA COMPARACION CON CHI TABU
-                }
-
-                
             }
         }
         public decimal Factorial(int valor)
@@ -510,7 +500,7 @@ namespace Tp3
                             limiteParcial = false;
                             
                         }
-                        if (i == items.Count() && acumulados == 0)
+                        if (i == items.Count()-1 && acumulados == 0)
                         {
                             desde = items[i].Desde;
                             hasta = (decimal)items[i].Hasta;
@@ -596,6 +586,47 @@ namespace Tp3
                };
                 dgvChiCuadrado.Rows.Add(fila);
             }
+            //NO ME APARECEN LAS PROPIEDADES DE LA TABLA ASI QUE CARGO TODOS LOS VALORES 
+            //CUANDO VEAS EL PROYECTO EN TU ORDENADOR CARGALO UwU
+            //LE PUSE CUALQUIER NOMBRE A LOS ATRIBUTOS DSP CAMBIALOS
+            /*
+            List<Registro> itemsKs;
+            var cantNumeros = Formulario1.listaDist.Count;
+            decimal acumuladaPO = 0;
+            decimal acumuladaPE = 0;
+            decimal mayor = 0;
+            bool primero = true;
+            decimal probabilidadObservada = 0;
+            for (int i = 0; i < items.Count(); i++)
+            {
+                probabilidadObservada = items[i].FrecuenciaObservada / cantNumeros;
+                acumuladaPO += probabilidadObservada;
+                acumuladaPE += items[i].ProbabilidadEsperada;
+                var valorAbs = Math.Abs(acumuladaPO - acumuladaPE);
+                if (primero)
+                {
+                    mayor = valorAbs;
+                    primero = false;
+                }
+                if (valorAbs > mayor) mayor = valorAbs;
+                
+                var fila = new string[]
+                   {       
+                        itemsChi[i].Desde.ToString(),
+                        itemsChi[i].Hasta.ToString(),
+                        itemsChi[i].FrecuenciaObservada.ToString(),
+                        itemsChi[i].FrecuenciaEsperada.ToString(),
+                        probabilidadObservada.ToString(),
+                        itemsChi[i].ProbabilidadEsperada.ToString(),
+                        acumuladaPO.ToString(),
+                        acumuladaPE.ToString(),
+                        valorAbs.ToString(),
+                        mayor.ToString(),
+                   };
+                
+                //dgvKs.Rows.Add(fila);
+            }
+            */
         }
         public void mostrarEnTabla(List<Registro> items)
         {

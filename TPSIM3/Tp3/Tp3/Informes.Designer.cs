@@ -45,17 +45,19 @@ namespace Tp3
             this.cbIntervalos = new System.Windows.Forms.ComboBox();
             this.graficoHistrograma = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dgvChiCuadrado = new System.Windows.Forms.DataGridView();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FO = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.dgvKs = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.DgvInforme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.graficoHistrograma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiCuadrado)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKs)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -184,24 +186,6 @@ namespace Tp3
             this.dgvChiCuadrado.Size = new System.Drawing.Size(615, 150);
             this.dgvChiCuadrado.TabIndex = 12;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(23, 352);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 13;
-            this.label2.Text = "label2";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(159, 352);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
-            this.label3.TabIndex = 14;
-            this.label3.Text = "label3";
-            // 
             // Column1
             // 
             this.Column1.HeaderText = "Desde";
@@ -232,11 +216,38 @@ namespace Tp3
             this.Column4.HeaderText = "C() Acu";
             this.Column4.Name = "Column4";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(23, 352);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(35, 13);
+            this.label2.TabIndex = 13;
+            this.label2.Text = "label2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(159, 352);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.TabIndex = 14;
+            this.label3.Text = "label3";
+            // 
+            // dgvKs
+            // 
+            this.dgvKs.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvKs.Location = new System.Drawing.Point(12, 676);
+            this.dgvKs.Name = "dgvKs";
+            this.dgvKs.Size = new System.Drawing.Size(1127, 150);
+            this.dgvKs.TabIndex = 15;
+            // 
             // Informes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1231, 645);
+            this.ClientSize = new System.Drawing.Size(1231, 845);
+            this.Controls.Add(this.dgvKs);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.dgvChiCuadrado);
@@ -252,6 +263,7 @@ namespace Tp3
             ((System.ComponentModel.ISupportInitialize)(this.DgvInforme)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.graficoHistrograma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiCuadrado)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvKs)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,5 +292,6 @@ namespace Tp3
         private System.Windows.Forms.DataGridViewTextBoxColumn FE;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
+        private System.Windows.Forms.DataGridView dgvKs;
     }
 }
