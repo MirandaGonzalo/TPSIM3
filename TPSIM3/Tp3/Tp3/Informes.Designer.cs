@@ -29,9 +29,9 @@ namespace Tp3
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.botonInforme = new System.Windows.Forms.Button();
             this.DgvInforme = new System.Windows.Forms.DataGridView();
@@ -66,10 +66,24 @@ namespace Tp3
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.dgvPoissonDist = new System.Windows.Forms.DataGridView();
+            this.Valor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrecObs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Probabilidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ProbEsp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrecEspe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvChiPoisson = new System.Windows.Forms.DataGridView();
+            this.ValorChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FoChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FeChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CAcuChi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DgvInforme)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.graficoHistrograma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiCuadrado)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKs)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPoissonDist)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiPoisson)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -169,16 +183,16 @@ namespace Tp3
             // 
             // graficoHistrograma
             // 
-            chartArea2.Name = "ChartArea1";
-            this.graficoHistrograma.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.graficoHistrograma.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.graficoHistrograma.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.graficoHistrograma.Legends.Add(legend3);
             this.graficoHistrograma.Location = new System.Drawing.Point(817, 43);
             this.graficoHistrograma.Name = "graficoHistrograma";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.graficoHistrograma.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.graficoHistrograma.Series.Add(series3);
             this.graficoHistrograma.Size = new System.Drawing.Size(534, 300);
             this.graficoHistrograma.TabIndex = 11;
             this.graficoHistrograma.Text = "chart1";
@@ -324,9 +338,10 @@ namespace Tp3
             // label4
             // 
             this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(684, 295);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(104, 13);
+            this.label4.Size = new System.Drawing.Size(120, 13);
             this.label4.TabIndex = 18;
             this.label4.Text = "<-- CHI CUADRADO";
             // 
@@ -339,11 +354,93 @@ namespace Tp3
             this.label5.TabIndex = 19;
             this.label5.Text = "<-- KS";
             // 
+            // dgvPoissonDist
+            // 
+            this.dgvPoissonDist.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPoissonDist.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Valor,
+            this.FrecObs,
+            this.Probabilidad,
+            this.ProbEsp,
+            this.FrecEspe});
+            this.dgvPoissonDist.Location = new System.Drawing.Point(12, 43);
+            this.dgvPoissonDist.Name = "dgvPoissonDist";
+            this.dgvPoissonDist.Size = new System.Drawing.Size(545, 219);
+            this.dgvPoissonDist.TabIndex = 20;
+            this.dgvPoissonDist.Visible = false;
+            // 
+            // Valor
+            // 
+            this.Valor.HeaderText = "Valor";
+            this.Valor.Name = "Valor";
+            // 
+            // FrecObs
+            // 
+            this.FrecObs.HeaderText = "Fo";
+            this.FrecObs.Name = "FrecObs";
+            // 
+            // Probabilidad
+            // 
+            this.Probabilidad.HeaderText = "Po()";
+            this.Probabilidad.Name = "Probabilidad";
+            // 
+            // ProbEsp
+            // 
+            this.ProbEsp.HeaderText = "Pe()";
+            this.ProbEsp.Name = "ProbEsp";
+            // 
+            // FrecEspe
+            // 
+            this.FrecEspe.HeaderText = "Fe";
+            this.FrecEspe.Name = "FrecEspe";
+            // 
+            // dgvChiPoisson
+            // 
+            this.dgvChiPoisson.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvChiPoisson.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ValorChi,
+            this.FoChi,
+            this.FeChi,
+            this.cChi,
+            this.CAcuChi});
+            this.dgvChiPoisson.Location = new System.Drawing.Point(12, 268);
+            this.dgvChiPoisson.Name = "dgvChiPoisson";
+            this.dgvChiPoisson.Size = new System.Drawing.Size(545, 138);
+            this.dgvChiPoisson.TabIndex = 21;
+            this.dgvChiPoisson.Visible = false;
+            // 
+            // ValorChi
+            // 
+            this.ValorChi.HeaderText = "Valor";
+            this.ValorChi.Name = "ValorChi";
+            // 
+            // FoChi
+            // 
+            this.FoChi.HeaderText = "Fo";
+            this.FoChi.Name = "FoChi";
+            // 
+            // FeChi
+            // 
+            this.FeChi.HeaderText = "Fe";
+            this.FeChi.Name = "FeChi";
+            // 
+            // cChi
+            // 
+            this.cChi.HeaderText = "C";
+            this.cChi.Name = "cChi";
+            // 
+            // CAcuChi
+            // 
+            this.CAcuChi.HeaderText = "C(AC)";
+            this.CAcuChi.Name = "CAcuChi";
+            // 
             // Informes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1370, 749);
+            this.Controls.Add(this.dgvChiPoisson);
+            this.Controls.Add(this.dgvPoissonDist);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -363,6 +460,8 @@ namespace Tp3
             ((System.ComponentModel.ISupportInitialize)(this.graficoHistrograma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvChiCuadrado)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKs)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPoissonDist)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvChiPoisson)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -404,5 +503,17 @@ namespace Tp3
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.DataGridView dgvPoissonDist;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Valor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FrecObs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Probabilidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ProbEsp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FrecEspe;
+        private System.Windows.Forms.DataGridView dgvChiPoisson;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValorChi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FoChi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn FeChi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cChi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CAcuChi;
     }
 }

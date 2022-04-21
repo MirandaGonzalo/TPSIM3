@@ -132,9 +132,15 @@ namespace Tp3
 
                 if(distribucion.Equals( "POISSON"))
                 {
+                    DgvInforme.Visible = false;
+                    dgvChiCuadrado.Visible = false;
+                    dgvKs.Visible = false;
+                    dgvPoissonDist.Visible = true;
+                    dgvChiPoisson.Visible = true;
                     label3.Text = "No se calcula KS";
                     limitesSup.Clear();
                     frecObservada.Clear();
+                    dgvPoissonDist.Rows.Clear();
                     var auxiliar = mayor - menor + 1;
                     var menorAux = menor;
                     for (int i = 0; i < auxiliar; i++)
@@ -164,8 +170,21 @@ namespace Tp3
                     var lambda = Formulario1.valorMediaExponencial;
                     
                     var items = calcularTablaFrecPoisson(lambda,(int)auxiliar,frecObservada ,(int)menor, leng);
-                    mostrarEnTabla(items);
-                    var cantIntervalo = mostrarTablaChi(items);
+                    //mostrarEnTabla(items);
+                    for (int i = 0; i < items.Count(); i++)
+                    {
+                        var fila = new string[]
+                        {
+                            items[i].Hasta.ToString(),
+                            items[i].FrecuenciaObservada.ToString(),
+                            items[i].FrecuenciaRelativa.ToString(),
+                            items[i].ProbabilidadEsperada.ToString(),
+                            items[i].FrecuenciaEsperada.ToString(),
+
+                        };
+                        dgvPoissonDist.Rows.Add(fila);
+                    }
+                    var cantIntervalo = mostrarTablaChiPoisson(items);
                     //relizarHistograma(items);
                     var gradosLibertad = cantIntervalo - 1 - 1;
 
@@ -186,6 +205,11 @@ namespace Tp3
                 }
                 else
                 {
+                    dgvKs.Visible = true;
+                    DgvInforme.Visible = true;
+                    dgvChiCuadrado.Visible = true;
+                    dgvPoissonDist.Visible = false;
+                    dgvChiPoisson.Visible = false;
                     decimal mayorKS;
                     List<Registro> items;
                     if (distribucion.Equals("UNIFORME"))
@@ -530,14 +554,15 @@ namespace Tp3
         private bool puedoAcumular(List<Registro> items, int desde)
         {
             decimal acumuladoItems = 0;
+            int cant = 0;
             for (int i = desde; i < items.Count(); i++)
             {
                 acumuladoItems += items[i].FrecuenciaEsperada;
+                cant++;
             }
             if (acumuladoItems > 5)
             {
                 //llego a 5 ==> es necesario acumular para los restantes
-                //busco hasta cuando puedo acumular, si es hasta una parte o todo (recursividad ?) )
                 return true;
             }
             return false;
@@ -549,7 +574,7 @@ namespace Tp3
             decimal acumuladoItems = acumulado;
             for (int i = desde; i < items.Count(); i++)
             {
-                if (acumuladoItems > 5)
+                if (acumuladoItems >= 5)
                 {
                     hasta = i;
                     break;
@@ -557,6 +582,161 @@ namespace Tp3
                 acumuladoItems += items[i].FrecuenciaEsperada;
             }
             return hasta;
+        }
+
+        public int mostrarTablaChiPoisson(List<Registro> items)
+        {
+            var itemsChi = new List<Registro>();
+            List<decimal> agrupados;
+            int limiteAcumularParcial = 0;
+            decimal acumulados = 0;
+            decimal desde = 0;
+            decimal hasta = 0;
+            decimal frecuenciaObservada = 0;
+            decimal frecuenciaEsperada = 0;
+            bool acumuloRestante = false;
+            bool limiteParcial = false;
+            for (int i = 0; i < items.Count(); i++)
+            {
+                //Pregunto si tengo que acumular los valores restantes
+                if (acumuloRestante)
+                {
+                    frecuenciaObservada += items[i].FrecuenciaObservada;
+                    frecuenciaEsperada += items[i].FrecuenciaEsperada;
+                    if (i == items.Count() - 1)
+                    {
+                        hasta = items[i].Hasta;
+                        Registro reg = new Registro()
+                        {
+                            Desde = desde,
+                            Hasta = hasta,
+                            FrecuenciaEsperada = frecuenciaEsperada,
+                            FrecuenciaObservada = frecuenciaObservada
+                        };
+                        itemsChi.Add(reg);
+                    }
+                }
+                else
+                {
+                    if (acumulados == 0)
+                    {
+                        frecuenciaObservada = items[i].FrecuenciaObservada;
+                        frecuenciaEsperada = items[i].FrecuenciaEsperada;
+                        desde = items[i].Hasta;
+                        hasta = items[i].Hasta;
+                    }
+                    if (i < limiteAcumularParcial)
+                    {
+                        frecuenciaObservada += items[i].FrecuenciaObservada;
+                        frecuenciaEsperada += items[i].FrecuenciaEsperada;
+                        ;
+                    }
+                    else
+                    {
+                        if (i == limiteAcumularParcial && limiteParcial)
+                        {
+                            hasta = items[i - 1].Hasta;
+                            Registro reg = new Registro()
+                            {
+                                Desde = desde,
+                                Hasta = hasta,
+                                FrecuenciaEsperada = frecuenciaEsperada,
+                                FrecuenciaObservada = frecuenciaObservada
+                            };
+                            itemsChi.Add(reg);
+                            desde = items[i].Hasta;
+                            hasta = items[i].Hasta;
+                            frecuenciaObservada = items[i].FrecuenciaObservada;
+                            frecuenciaEsperada = items[i].FrecuenciaEsperada;
+                            acumulados = 0;
+                            limiteParcial = false;
+
+                        }
+                        if (i == items.Count() - 1 && acumulados == 0)
+                        {
+                            desde = items[i].Hasta;
+                            hasta = items[i].Hasta;
+                            acumulados = items[i].FrecuenciaEsperada;
+                            frecuenciaObservada = items[i].FrecuenciaObservada;
+                            frecuenciaEsperada = items[i].FrecuenciaEsperada;
+                            Registro reg = new Registro()
+                            {
+                                Desde = desde,
+                                Hasta = hasta,
+                                FrecuenciaEsperada = frecuenciaEsperada,
+                                FrecuenciaObservada = frecuenciaObservada
+                            };
+                            itemsChi.Add(reg);
+                        }
+                        else
+                        {
+                            if (acumulados + items[i].FrecuenciaEsperada < 5)
+                            {
+                                //tengo que acumular.
+                                acumulados += items[i].FrecuenciaEsperada;
+                                //Reviso si acumulo todo lo que queda o solo los que estan mas cerca.
+                                var result = puedoAcumular(items, i + 1);
+                                if (result)
+                                {
+                                    //Busco hasta donde Acumular
+                                    var limite = limiteAcumular(acumulados, items, i + 1);
+                                    limiteAcumularParcial = limite;
+                                    if (limite == items.Count() || !puedoAcumular(items, limite + 1)) acumuloRestante = true;
+                                    limiteParcial = true;
+                                }
+                                else
+                                {
+                                    acumuloRestante = true;
+                                }
+                            }
+                            else
+                            {
+                                desde = items[i].Hasta;
+                                hasta = items[i].Hasta;
+                                acumulados = 0;
+                                frecuenciaObservada = items[i].FrecuenciaObservada;
+                                frecuenciaEsperada = items[i].FrecuenciaEsperada;
+                                if (puedoAcumular(items, i + 1))
+                                {
+                                    Registro reg = new Registro()
+                                    {
+                                        Desde = desde,
+                                        Hasta = hasta,
+                                        FrecuenciaEsperada = frecuenciaEsperada,
+                                        FrecuenciaObservada = frecuenciaObservada
+                                    };
+                                    itemsChi.Add(reg);
+                                }
+                                else
+                                {
+                                    acumuloRestante = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            decimal acumulado = 0;
+            for (int i = 0; i < itemsChi.Count(); i++)
+            {
+                //PRUEBA DE BONDAD DE AJUSTE CON CHI
+                // calculamos el estadistico llamando a la funcion calcularEstadistico 
+                //Luego lo acumulamos en acumulado para obtener el valor de chi cuadrado
+                var estaditicoM = CalcularEstadistico(itemsChi[i].FrecuenciaObservada, itemsChi[i].FrecuenciaEsperada);
+                acumulado += estaditicoM;
+                Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
+                var fila = new string[]
+                {
+                            (itemsChi[i].Desde + "-" + itemsChi[i].Hasta).ToString(),
+                            itemsChi[i].FrecuenciaObservada.ToString(),
+                            itemsChi[i].FrecuenciaEsperada.ToString(),
+                            estaditicoM.ToString(),
+                            Acumulado.ToString()
+                 };
+                dgvChiPoisson.Rows.Add(fila);
+            }
+
+            return itemsChi.Count();
         }
 
         public int mostrarTablaChi(List<Registro> items)
@@ -619,8 +799,8 @@ namespace Tp3
                                 FrecuenciaObservada = frecuenciaObservada
                             };
                             itemsChi.Add(reg);
-                            desde = 0;                            
-                            hasta = 0;
+                            desde = items[i].Desde;
+                            hasta = items[i].Hasta;
                             frecuenciaObservada = items[i].FrecuenciaObservada;
                             frecuenciaEsperada = items[i].FrecuenciaEsperada;
                             acumulados = 0;
@@ -656,7 +836,7 @@ namespace Tp3
                                     //Busco hasta donde Acumular
                                     var limite = limiteAcumular(acumulados, items, i+1);
                                     limiteAcumularParcial = limite;
-                                    if (limite == items.Count()) acumuloRestante = true;
+                                    if (limite == items.Count() || !puedoAcumular(items, limite+1)) acumuloRestante = true;
                                     limiteParcial = true;
                                 }
                                 else
@@ -681,6 +861,8 @@ namespace Tp3
                                         FrecuenciaObservada = frecuenciaObservada
                                     };
                                     itemsChi.Add(reg);
+                                    frecuenciaEsperada = 0;
+                                    frecuenciaObservada = 0;
                                 }
                                 else
                                 {
@@ -912,6 +1094,7 @@ namespace Tp3
         {
 
         }
+
     }
 }
 
