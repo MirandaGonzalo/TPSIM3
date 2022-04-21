@@ -26,7 +26,7 @@ namespace Tp3
         private bool validarDistrSel()
         {
             var result = true;
-            if (rbDistUniformeAb.Checked == false && rbExponencial.Checked == false && RbNormal.Checked == false && RbPoisson.Checked == false)
+            if (rbDistUniformeAb.Checked == false && rbExponencial.Checked == false && RbNormal.Checked == false && RbPoisson.Checked == false && RbConvolucion.Checked == false)
             {
                 return false;
             }

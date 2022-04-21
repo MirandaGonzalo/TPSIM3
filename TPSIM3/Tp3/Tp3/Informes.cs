@@ -901,7 +901,10 @@ namespace Tp3
             {
                 var raizN = Math.Sqrt(leng);
 
-                tabu = (decimal)1.36 /(decimal)raizN;
+                var tabuSinTruncar = (decimal)1.36 /(decimal)raizN;
+
+                
+                tabu = (decimal)(Math.Truncate(tabuSinTruncar * 100000) / 100000);
             }
             return tabu;
         }
