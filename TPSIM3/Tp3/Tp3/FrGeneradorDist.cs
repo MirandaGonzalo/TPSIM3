@@ -67,6 +67,8 @@ namespace Tp3
                     var cantMuestras = Convert.ToInt64(TxtCantMuestras.Text);
                     var generador = new Generador();
                     //uniforme a b
+
+                    //GENERADOR UNIFORME
                     if (rbDistUniformeAb.Checked)
                     {
                         tipoDistribucion = "UNIFORME";

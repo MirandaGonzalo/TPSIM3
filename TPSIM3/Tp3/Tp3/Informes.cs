@@ -67,7 +67,6 @@ namespace Tp3
 
         private List<int> calcularFrecObservada(int leng, int cantidadInt, List<decimal> limitesSup, List<decimal> serieNumeros , List<int> frecObservada )
         {
-
             for (int iteracion = 0; iteracion < leng; iteracion++)
             {
                 for (int j = 0; j < cantidadInt; j++)
@@ -86,8 +85,10 @@ namespace Tp3
         private void botonInforme_Click(object sender, EventArgs e)
         {
             label2.Visible = true;
+            label3.Visible = true;
             Acumulado = 0;
             var tablaChi = llenarTablaChiTabulado();
+            var tablaKS = llenarTablaKS();
             //tablaTabulado = llenarTablaChiTabulado():
             DgvInforme.Rows.Clear();
             dgvChiCuadrado.Rows.Clear();
@@ -131,6 +132,7 @@ namespace Tp3
 
                 if(distribucion.Equals( "POISSON"))
                 {
+                    label3.Text = "No se calcula KS";
                     limitesSup.Clear();
                     frecObservada.Clear();
                     var auxiliar = mayor - menor + 1;
@@ -196,22 +198,33 @@ namespace Tp3
                         mostrarEnTabla(items);
                         var cantIntervalo = mostrarTablaChi(items);
                         //relizarHistograma(items);
-                        var gradosLibertad = cantIntervalo - 1 ;
+                        var gradosLibertad = cantIntervalo - 1;
 
                         var valorTabulado = devolverTabulado(tablaChi, gradosLibertad);
                         if (Acumulado > valorTabulado)
                         {
-                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO ("+Acumulado.ToString() +">"+valorTabulado.ToString()+")" ;
-                            label2.Text = hipo ;
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO (" + Acumulado.ToString() + ">" + valorTabulado.ToString() + ")";
+                            label2.Text = hipo;
                         }
                         else
                         {
-                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" +Acumulado.ToString() + "<" + valorTabulado.ToString()+ ")" ;
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" + Acumulado.ToString() + "<" + valorTabulado.ToString() + ")";
                             label2.Text = hipo;
                         }
 
-
                         mayorKS = mostrarTablaKs(items);
+                        var tabuladoKS = devolverTabuladoKS(tablaKS, leng);
+                        if (mayorKS > tabuladoKS)
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE KS (" + mayorKS.ToString() + ">" + tabuladoKS.ToString() + ")";
+                            label3.Text = hipo;
+                        }
+                        else
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE KS  (" + mayorKS.ToString() + "<" + tabuladoKS.ToString() + ")";
+                            label3.Text = hipo;
+                        }
+
                         relizarHistograma(items);
 
                     }
@@ -226,9 +239,11 @@ namespace Tp3
                         items = calcularTablaFrecNormal(cantidadInt, menor, frecObservada, limitesSup, leng, Formulario1.mediaNormal, Formulario1.desviacionNormal);
 
                         mostrarEnTabla(items);
-                        
+
                         var cantIntervalo = mostrarTablaChi(items);
-                        //relizarHistograma(items);
+
+
+                        //prueba de chi cuadrado
                         var gradosLibertad = cantIntervalo - 1 - 2;
 
                         var valorTabulado = devolverTabulado(tablaChi, gradosLibertad);
@@ -242,7 +257,23 @@ namespace Tp3
                             string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" + Acumulado.ToString() + "<" + valorTabulado.ToString() + ")";
                             label2.Text = hipo;
                         }
+                        
+
+                        // PRUEBA DE KS
                         mayorKS = mostrarTablaKs(items);
+                        var tabuladoKS = devolverTabuladoKS(tablaKS, leng);
+
+                        if (mayorKS > tabuladoKS)
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE KS (" + mayorKS.ToString() + ">" + tabuladoKS.ToString() + ")";
+                            label3.Text = hipo;
+                        }
+                        else
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE KS  (" + mayorKS.ToString() + "<" + tabuladoKS.ToString() + ")";
+                            label3.Text = hipo;
+                        }
+
                         relizarHistograma(items);
 
                     }
@@ -272,14 +303,20 @@ namespace Tp3
                             string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE CHI CUADRADO  (" + Acumulado.ToString() + "<" + valorTabulado.ToString() + ")";
                             label2.Text = hipo;
                         }
+
                         mayorKS = mostrarTablaKs(items);
-                        relizarHistograma(items);
-                        mayorKS = mostrarTablaKs(items);
-                        relizarHistograma(items);
+                        var tabuladoKS = devolverTabuladoKS(tablaKS, leng);
+                        if (mayorKS > tabuladoKS)
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE KS (" + mayorKS.ToString() + ">" + tabuladoKS.ToString() + ")";
+                            label3.Text = hipo;
+                        }
+                        else
+                        {
+                            string hipo = "HIPOTESIS -> LA SERIE TIENDE A UNA DISTRIBUCION UNIFORME ->NO SE RECHAZA LA HIPOTESIS PARA LA PRUEBA DE KS  (" + mayorKS.ToString() + "<" + tabuladoKS.ToString() + ")";
+                            label3.Text = hipo;
+                        }
                     }
-                    //mostrarEnTabla(items);
-                    //mostrarTablaChi(items);
-                    //relizarHistograma(items);
                 }
             }
         }
@@ -664,9 +701,7 @@ namespace Tp3
                 acumulado += estaditicoM;
                 Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
                 var fila = new string[]
-                {
-                            //items[i].Desde.ToString(),
-                            //1.ToString(),         
+                {    
                             itemsChi[i].Desde.ToString(),
                             itemsChi[i].Hasta.ToString(),
                             itemsChi[i].FrecuenciaObservada.ToString(),
@@ -723,19 +758,8 @@ namespace Tp3
         {
             for (int i = 0; i < items.Count(); i++)
             {
-                //PRUEBA DE BONDAD DE AJUSTE CON CHI
-                // calculamos el estadistico llamando a la funcion calcularEstadistico 
-                //Luego lo acumulamos en acumulado para obtener el valor de chi cuadrado
-                //var estaditicoM = CalcularEstadistico(items[i].FrecuenciaObservada, items[i].FrecuenciaEsperada);
-                //acumulado += estaditicoM;
-                //Acumulado = (decimal)(Math.Truncate(acumulado * 10000) / 10000);
-                //Armamos el string que mostraremos en la tabla grafica(dataGrid)
-                //DgvInforme += items[i].FrecuenciaRelativa;
-                string uwu = "--";
                 var fila = new string[]
                 {
-
-                            //items[i].Desde.ToString(),
                             items[i].Desde.ToString(),
                             items[i].Hasta.ToString(),
                             items[i].MarcaClase.ToString(),
@@ -821,6 +845,66 @@ namespace Tp3
             return tabu;
         }
 
+        public List<double> llenarTablaKS()
+        {
+            var tablaKS = new List<double>();
+
+            for (int i = 0; i < 36; i++)
+            {
+                tablaKS.Add(0);
+            }
+            tablaKS[0] = 0;
+            tablaKS[1] = 0.97500;
+            tablaKS[2] = 0.84189;
+            tablaKS[3] = 0.70760;
+            tablaKS[4] = 0.62394;
+            tablaKS[5] = 0.56328;
+            tablaKS[6] = 0.51926;
+            tablaKS[7] = 0.48342;
+            tablaKS[8] = 0.45427;
+            tablaKS[9] = 0.43001;
+            tablaKS[10] = 0.40925;
+            tablaKS[11] = 0.39122;
+            tablaKS[12] = 0.37543;
+            tablaKS[13] = 0.32143;
+            tablaKS[14] = 0.34890;
+            tablaKS[15] = 0.33750;
+            tablaKS[16] = 0.3;
+            tablaKS[17] = 0.31796;
+            tablaKS[18] = 0.30936;
+            tablaKS[19] = 0.30143;
+            tablaKS[20] = 0.29408;
+            tablaKS[21] = 0.28724;
+            tablaKS[22] = 0.28087;
+            tablaKS[23] = 0.2749;
+            tablaKS[24] = 0.26931;
+            tablaKS[25] = 0.26404;
+            tablaKS[26] = 0.25908;
+            tablaKS[27] = 0.25438;
+            tablaKS[28] = 0.24993;
+            tablaKS[29] = 0.24571;
+            tablaKS[30] = 0.24170;
+            tablaKS[31] = 0.23788;
+            tablaKS[32] = 0.23424;
+
+            return tablaKS;
+        }
+    
+        public decimal devolverTabuladoKS(List<double> tablaKS, int leng)
+        {
+            decimal tabu;
+            if (leng <= 35)
+            {
+                tabu = (decimal)tablaKS[leng];
+            }
+            else
+            {
+                var raizN = Math.Sqrt(leng);
+
+                tabu = (decimal)1.36 /(decimal)raizN;
+            }
+            return tabu;
+        }
         private void Informes_Load(object sender, EventArgs e)
         {
 

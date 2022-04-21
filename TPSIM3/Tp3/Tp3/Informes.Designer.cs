@@ -29,12 +29,19 @@ namespace Tp3
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend7 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.botonInforme = new System.Windows.Forms.Button();
             this.DgvInforme = new System.Windows.Forms.DataGridView();
+            this.Desde = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hasta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MarcaClase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrecuenciaObservada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FrecuenciaEsperada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cbIntervalos = new System.Windows.Forms.ComboBox();
             this.graficoHistrograma = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.dgvChiCuadrado = new System.Windows.Forms.DataGridView();
@@ -55,13 +62,6 @@ namespace Tp3
             this.Column14 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column15 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column16 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Desde = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hasta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.MarcaClase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FrecuenciaObservada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FrecuenciaEsperada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -109,6 +109,51 @@ namespace Tp3
             this.DgvInforme.Size = new System.Drawing.Size(799, 219);
             this.DgvInforme.TabIndex = 9;
             // 
+            // Desde
+            // 
+            this.Desde.HeaderText = "Desde";
+            this.Desde.MinimumWidth = 6;
+            this.Desde.Name = "Desde";
+            this.Desde.Width = 125;
+            // 
+            // Hasta
+            // 
+            this.Hasta.HeaderText = "Hasta";
+            this.Hasta.MinimumWidth = 6;
+            this.Hasta.Name = "Hasta";
+            this.Hasta.Width = 125;
+            // 
+            // MarcaClase
+            // 
+            this.MarcaClase.HeaderText = "Marca de clase";
+            this.MarcaClase.MinimumWidth = 6;
+            this.MarcaClase.Name = "MarcaClase";
+            this.MarcaClase.Width = 125;
+            // 
+            // FrecuenciaObservada
+            // 
+            this.FrecuenciaObservada.HeaderText = "FO";
+            this.FrecuenciaObservada.MinimumWidth = 6;
+            this.FrecuenciaObservada.Name = "FrecuenciaObservada";
+            this.FrecuenciaObservada.Width = 125;
+            // 
+            // Column7
+            // 
+            this.Column7.HeaderText = "PO()";
+            this.Column7.Name = "Column7";
+            // 
+            // Column8
+            // 
+            this.Column8.HeaderText = "Pe()";
+            this.Column8.Name = "Column8";
+            // 
+            // FrecuenciaEsperada
+            // 
+            this.FrecuenciaEsperada.HeaderText = "FE";
+            this.FrecuenciaEsperada.MinimumWidth = 6;
+            this.FrecuenciaEsperada.Name = "FrecuenciaEsperada";
+            this.FrecuenciaEsperada.Width = 125;
+            // 
             // cbIntervalos
             // 
             this.cbIntervalos.FormattingEnabled = true;
@@ -124,16 +169,16 @@ namespace Tp3
             // 
             // graficoHistrograma
             // 
-            chartArea7.Name = "ChartArea1";
-            this.graficoHistrograma.ChartAreas.Add(chartArea7);
-            legend7.Name = "Legend1";
-            this.graficoHistrograma.Legends.Add(legend7);
+            chartArea2.Name = "ChartArea1";
+            this.graficoHistrograma.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.graficoHistrograma.Legends.Add(legend2);
             this.graficoHistrograma.Location = new System.Drawing.Point(817, 43);
             this.graficoHistrograma.Name = "graficoHistrograma";
-            series7.ChartArea = "ChartArea1";
-            series7.Legend = "Legend1";
-            series7.Name = "Series1";
-            this.graficoHistrograma.Series.Add(series7);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.graficoHistrograma.Series.Add(series2);
             this.graficoHistrograma.Size = new System.Drawing.Size(534, 300);
             this.graficoHistrograma.TabIndex = 11;
             this.graficoHistrograma.Text = "chart1";
@@ -197,7 +242,7 @@ namespace Tp3
             this.Column14,
             this.Column15,
             this.Column16});
-            this.dgvKs.Location = new System.Drawing.Point(12, 464);
+            this.dgvKs.Location = new System.Drawing.Point(12, 482);
             this.dgvKs.Name = "dgvKs";
             this.dgvKs.Size = new System.Drawing.Size(1127, 220);
             this.dgvKs.TabIndex = 15;
@@ -252,59 +297,14 @@ namespace Tp3
             this.Column16.HeaderText = "MAYOR";
             this.Column16.Name = "Column16";
             // 
-            // Desde
-            // 
-            this.Desde.HeaderText = "Desde";
-            this.Desde.MinimumWidth = 6;
-            this.Desde.Name = "Desde";
-            this.Desde.Width = 125;
-            // 
-            // Hasta
-            // 
-            this.Hasta.HeaderText = "Hasta";
-            this.Hasta.MinimumWidth = 6;
-            this.Hasta.Name = "Hasta";
-            this.Hasta.Width = 125;
-            // 
-            // MarcaClase
-            // 
-            this.MarcaClase.HeaderText = "Marca de clase";
-            this.MarcaClase.MinimumWidth = 6;
-            this.MarcaClase.Name = "MarcaClase";
-            this.MarcaClase.Width = 125;
-            // 
-            // FrecuenciaObservada
-            // 
-            this.FrecuenciaObservada.HeaderText = "FO";
-            this.FrecuenciaObservada.MinimumWidth = 6;
-            this.FrecuenciaObservada.Name = "FrecuenciaObservada";
-            this.FrecuenciaObservada.Width = 125;
-            // 
-            // Column7
-            // 
-            this.Column7.HeaderText = "PO()";
-            this.Column7.Name = "Column7";
-            // 
-            // Column8
-            // 
-            this.Column8.HeaderText = "Pe()";
-            this.Column8.Name = "Column8";
-            // 
-            // FrecuenciaEsperada
-            // 
-            this.FrecuenciaEsperada.HeaderText = "FE";
-            this.FrecuenciaEsperada.MinimumWidth = 6;
-            this.FrecuenciaEsperada.Name = "FrecuenciaEsperada";
-            this.FrecuenciaEsperada.Width = 125;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.Color.PeachPuff;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(36, 421);
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(36, 420);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(51, 16);
+            this.label2.Size = new System.Drawing.Size(52, 18);
             this.label2.TabIndex = 16;
             this.label2.Text = "label2";
             this.label2.Visible = false;
@@ -312,9 +312,11 @@ namespace Tp3
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 703);
+            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(36, 450);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(35, 13);
+            this.label3.Size = new System.Drawing.Size(52, 18);
             this.label3.TabIndex = 17;
             this.label3.Text = "label3";
             this.label3.Visible = false;
