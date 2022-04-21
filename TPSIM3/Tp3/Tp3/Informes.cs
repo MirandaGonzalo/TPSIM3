@@ -920,16 +920,25 @@ namespace Tp3
 
                 var fila = new string[]
                    {
-                        items[i].Desde.ToString(),
-                        items[i].Hasta.ToString(),
-                        items[i].FrecuenciaObservada.ToString(),
-                        items[i].FrecuenciaEsperada.ToString(),
-                        probabilidadObservada.ToString(),
-                        items[i].ProbabilidadEsperada.ToString(),
-                        acumuladaPO.ToString(),
-                        acumuladaPE.ToString(),
-                        valorAbs.ToString(),
-                        mayor.ToString(),
+                        (Math.Truncate(items[i].Desde * 10000) / 10000).ToString(),
+                        (Math.Truncate(items[i].Hasta * 10000) / 10000).ToString(),
+                        (Math.Truncate(items[i].FrecuenciaObservada * 10000) / 10000).ToString(),
+                        (Math.Truncate(items[i].FrecuenciaEsperada * 10000) / 10000).ToString(),
+                        (Math.Truncate(probabilidadObservada * 10000) / 10000).ToString(),
+                        (Math.Truncate(items[i].ProbabilidadEsperada * 10000) / 10000).ToString(),
+                        (Math.Truncate(acumuladaPO * 10000) / 10000).ToString(),
+                        (Math.Truncate(acumuladaPE * 10000) / 10000).ToString(),
+                        (Math.Truncate(valorAbs * 10000) / 10000).ToString(),
+                        (Math.Truncate(mayor * 10000) / 10000).ToString(),
+                        //items[i].Hasta.ToString(),
+                        //items[i].FrecuenciaObservada.ToString(),
+                        //items[i].FrecuenciaEsperada.ToString(),
+                        //probabilidadObservada.ToString(),
+                        //items[i].ProbabilidadEsperada.ToString(),
+                        //acumuladaPO.ToString(),
+                        //acumuladaPE.ToString(),
+                        //valorAbs.ToString(),
+                        //mayor.ToString(),
                    };
 
                 dgvKs.Rows.Add(fila);
